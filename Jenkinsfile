@@ -16,15 +16,15 @@ pipeline {
 
         stage('Install Dependencies') {
             steps {
-                echo 'Installing npm dependencies...'
-                sh 'npm install'
+                echo 'Installing npm dependencies using Node container...'
+                sh 'docker run --rm -v $(pwd):/app -w /app node:18-alpine npm install'
             }
         }
 
         stage('Run Tests') {
             steps {
-                echo 'Running tests...'
-                sh 'npm test'
+                echo 'Running tests using Node container...'
+                sh 'docker run --rm -v $(pwd):/app -w /app node:18-alpine npm test'
             }
         }
 
